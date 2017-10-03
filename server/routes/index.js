@@ -78,8 +78,11 @@ var passportGithub = require('../auth/github');
         passportAzure.authenticate('azure_ad_oauth2', { failureRedirect: '/login' }),
           function (req, res) {
             // Successful authentication, redirect home.
-            res.redirect('/');
+            res.json(req.user);
+            //res.redirect('/');
           });
+
+   
 
           var passportOpenId = require('../auth/openid');
           
@@ -90,7 +93,8 @@ var passportGithub = require('../auth/github');
                   passportOpenId.authenticate('openid', { failureRedirect: '/login' }),
                     function (req, res) {
                       // Successful authentication, redirect home.
-                      res.redirect('/');
+                      //res.redirect('/');
+                      res.json(req.user);
                     });
 
 
