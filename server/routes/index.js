@@ -81,5 +81,17 @@ var passportGithub = require('../auth/github');
             res.redirect('/');
           });
 
+          var passportOpenId = require('../auth/openid');
+          
+                  router.get('/auth/openid',
+                  passportOpenId.authenticate('openidconnect'));
+                  
+                  router.get('/auth/openid/callback', 
+                  passportOpenId.authenticate('openid', { failureRedirect: '/login' }),
+                    function (req, res) {
+                      // Successful authentication, redirect home.
+                      res.redirect('/');
+                    });
+
 
 module.exports = router;
