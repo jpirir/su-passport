@@ -5,43 +5,38 @@ var User = require('../models/user');
 var config = require('../_config');
 var init = require('./init');
 
-
 passport.use(new GoogleStrategy({
-    clientID: config.google.clientID,
-    clientSecret: config.google.clientSecret,
-    callbackURL: config.google.callbackURL,
-    passReqToCallback   : true
-  },
-  function(request,accessToken, refreshToken,profile, done) {
-    console.log(profile.id)
-    var searchQuery = {
-      name: profile.displayName
-    };
+        clientID: config.google.clientID,
+        clientSecret: config.google.clientSecret,
+        callbackURL: config.google.callbackURL
+    },
+    function (accessToken, refreshToken, profile, done) {
 
-    var updates = {
-      name: profile.displayName,
-      someID: profile.id
-    };
+        var searchQuery = {
+            name: profile.displayName
+        };
 
-    var options = {
-      upsert: true
-    };
+        var updates = {
+            name: profile.displayName,
+            someID: profile.id
+        };
 
-    // update the user if s/he exists or add a new user
-    User.findOneAndUpdate(searchQuery, updates, options, function(err, user) {
-       
-      if(err) {
-        return done(err);
-      } else {
-        return done(null, user);
-      }
-    });
-  }
+        var options = {
+            upsert: true
+        };
 
+        // update the user if s/he exists or add a new user
+        User.findOneAndUpdate(searchQuery, updates, options, function (err, user) {
+            if (err) {
+                return done(err);
+            } else {
+                return done(null, user);
+            }
+        });
+    }
 ));
 
 // serialize user into the session
 init();
-
 
 module.exports = passport;
