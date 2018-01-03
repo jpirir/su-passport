@@ -1,2 +1,6 @@
 node_modules/
-_config.js
+.DS_Store
+npm-debug.log
+server/_config.js
+nodejs-universales-passport.iml
+package-lock.json
