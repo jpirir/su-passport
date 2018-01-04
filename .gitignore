@@ -4,3 +4,4 @@ npm-debug.log
 server/_config.js
 nodejs-universales-passport.iml
 package-lock.json
+server/dbconfig.js

@@ -12,13 +12,16 @@ passport.use(new GoogleStrategy({
     },
     function (accessToken, refreshToken, profile, done) {
 
+        console.log(profile);
+
         var searchQuery = {
-            name: profile.displayName
+            email: profile.email
         };
 
         var updates = {
             name: profile.displayName,
-            someID: profile.id
+            email: profile.email,
+            googleId: profile.id
         };
 
         var options = {

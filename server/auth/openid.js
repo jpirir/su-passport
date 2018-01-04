@@ -12,17 +12,20 @@ passport.use(new OpenIDStrategy({
         authorizationURL: 'http://login.ordenadores.gt/openid-connect-server-webapp/authorize',
         clientID: config.openID.clientID,
         clientSecret: config.openID.clientSecret,
-        callbackURL: config.openID.callbackURL,
-        scope: 'profile email'
+        callbackURL: config.openID.callbackURL
     },
     function (iss, sub, profile, accessToken, refreshToken, done) {
+
+        console.log(profile);
+
         var searchQuery = {
-            name: profile.displayName
+            email: profile.email
         };
 
         var updates = {
             name: profile.displayName,
-            someID: profile.id
+            email: profile.email,
+            openidId: profile.id
         };
 
         var options = {

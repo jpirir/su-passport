@@ -2,15 +2,24 @@
 
 {% block title %}{% endblock %}
 
-
 {% block content %}
 
-  <div class="container">
+<div id="login" class="container">
 
-    <h1>{{ message }}</h1>
-    <h2>{{ error.status }}</h2>
-    <pre>{{ error.stack }}</pre>
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="portlet portlet-bordered mb-2">
+                <div class="portlet-title">
+                    <h4>Error</h4>
+                </div>
+                <div class="portlet-body">
+                    <p>{{ message }}</p>
+                </div>
+            </div>
+            <p class="text-center return"><a href="/">← Volver</a></p>
+        </div>
+    </div>
 
-  </div>
+</div>
 
 {% endblock %}

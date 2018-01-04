@@ -18,12 +18,13 @@ passport.use(new AzureStrategy({
         profile = jwt.decode(params.id_token);
 
         var searchQuery = {
-            name: profile.name
+            email: profile.email
         };
 
         var updates = {
             name: profile.name,
-            someID: profile.oid
+            email: profile.email,
+            azureId: profile.oid,
         };
 
         var options = {

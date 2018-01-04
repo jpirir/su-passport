@@ -8,17 +8,21 @@ var init = require('./init');
 passport.use(new LinkedInStrategy({
         consumerKey: config.linkedin.clientID,
         consumerSecret: config.linkedin.clientSecret,
-        callbackURL: config.linkedin.callbackURL
+        callbackURL: config.linkedin.callbackURL,
+        profileFields: ['id', 'first-name', 'last-name', 'email-address', 'headline']
     },
     function (token, tokenSecret, profile, done) {
 
+        console.log(profile);
+
         var searchQuery = {
-            name: profile.displayName
+            email: profile.emailAddress
         };
 
         var updates = {
             name: profile.displayName,
-            someID: profile.id
+            email: profile.emailAddress,
+            linkedinId: profile.id
         };
 
         var options = {

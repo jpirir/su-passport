@@ -10,11 +10,35 @@ var passportAzure = require('../auth/azure');
 var passportOpenId = require('../auth/openid');
 
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Express'});
+    if (req.isAuthenticated()) {
+        res.render('index', {
+            title: 'Universales',
+            message: 'Bienvenido',
+            url: 'localhost:3000',
+            user: req.user
+        });
+        //TODO: Add oracle database integration
+    } else {
+        res.render('login', {
+            title: 'Universales',
+            message: 'Iniciar sesión',
+            url: 'localhost:3000'
+        });
+    }
 });
 
 router.get('/login', function (req, res, next) {
-    res.send('Go back and register!');
+    res.render('login', {
+        title: 'Universales',
+        message: 'Iniciar sesión',
+        url: 'localhost:3000'
+    });
+});
+
+router.get('/logout', function (req, res, next) {
+    req.session.destroy(function (err) {
+        res.redirect('/');
+    });
 });
 
 router.get('/auth/linkedin', passportLinkedIn.authenticate('linkedin'));
@@ -23,7 +47,7 @@ router.get('/auth/linkedin/callback',
     passportLinkedIn.authenticate('linkedin', {failureRedirect: '/login'}),
     function (req, res) {
         // Successful authentication
-        res.json(req.user);
+        res.redirect('/');
     });
 
 router.get('/auth/github', passportGithub.authenticate('github', {scope: ['user:email']}));
@@ -32,7 +56,7 @@ router.get('/auth/github/callback',
     passportGithub.authenticate('github', {failureRedirect: '/login'}),
     function (req, res) {
         // Successful authentication
-        res.json(req.user);
+        res.redirect('/');
     });
 
 router.get('/auth/twitter', passportTwitter.authenticate('twitter'));
@@ -41,7 +65,7 @@ router.get('/auth/twitter/callback',
     passportTwitter.authenticate('twitter', {failureRedirect: '/login'}),
     function (req, res) {
         // Successful authentication
-        res.json(req.user);
+        res.redirect('/');
     });
 
 router.get('/auth/facebook', passportFacebook.authenticate('facebook'));
@@ -50,7 +74,7 @@ router.get('/auth/facebook/callback',
     passportFacebook.authenticate('facebook', {failureRedirect: '/login'}),
     function (req, res) {
         // Successful authentication
-        res.json(req.user);
+        res.redirect('/');
     });
 
 router.get('/auth/google', passportGoogle.authenticate('google', {
@@ -62,7 +86,7 @@ router.get('/auth/google/callback',
     passportGoogle.authenticate('google', {failureRedirect: '/login'}),
     function (req, res) {
         // Successful authentication
-        res.json(req.user);
+        res.redirect('/');
     });
 
 router.get('/auth/azure',
@@ -72,7 +96,7 @@ router.get('/auth/azure/callback',
     passportAzure.authenticate('azure_ad_oauth2', {failureRedirect: '/login'}),
     function (req, res) {
         // Successful authentication
-        res.json(req.user);
+        res.redirect('/');
     });
 
 router.get('/auth/openid',
@@ -82,7 +106,7 @@ router.get('/auth/openid/callback',
     passportOpenId.authenticate('openidconnect', {failureRedirect: '/login'}),
     function (req, res) {
         // Successful authentication
-        res.json(req.user);
+        res.redirect('/');
     });
 
 module.exports = router;
