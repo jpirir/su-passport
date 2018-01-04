@@ -6,39 +6,40 @@ var config = require('../_config');
 var init = require('./init');
 
 passport.use(new TwitterStrategy({
-    consumerKey: config.twitter.consumerKey,
-    consumerSecret: config.twitter.consumerSecret,
-    callbackURL: config.twitter.callbackURL
-  },
-  function(accessToken, refreshToken, profile, done) {
+        consumerKey: config.twitter.consumerKey,
+        consumerSecret: config.twitter.consumerSecret,
+        callbackURL: config.twitter.callbackURL
+    },
+    function (accessToken, refreshToken, profile, done) {
 
-    var searchQuery = {
-      name: profile.displayName
-    };
+        console.log(profile);
 
-    var updates = {
-      name: profile.displayName,
-      someID: profile.id
-    };
+        var searchQuery = {
+            email: profile.email
+        };
 
-    var options = {
-      upsert: true
-    };
+        var updates = {
+            name: profile.displayName,
+            email: profile.email,
+            twitterId: profile.id
+        };
 
-    // update the user if s/he exists or add a new user
-    User.findOneAndUpdate(searchQuery, updates, options, function(err, user) {
-      if(err) {
-        return done(err);
-      } else {
-        return done(null, user);
-      }
-    });
-  }
+        var options = {
+            upsert: true
+        };
 
+        // update the user if s/he exists or add a new user
+        User.findOneAndUpdate(searchQuery, updates, options, function (err, user) {
+            if (err) {
+                return done(err);
+            } else {
+                return done(null, user);
+            }
+        });
+    }
 ));
 
 // serialize user into the session
 init();
-
 
 module.exports = passport;

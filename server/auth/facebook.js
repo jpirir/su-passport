@@ -8,17 +8,21 @@ var init = require('./init');
 passport.use(new FacebookStrategy({
         clientID: config.facebook.clientID,
         clientSecret: config.facebook.clientSecret,
-        callbackURL: config.facebook.callbackURL
+        callbackURL: config.facebook.callbackURL,
+        profileFields: ['id', 'email', 'displayName', 'name', 'birthday']
     },
     function (accessToken, refreshToken, profile, done) {
 
+        console.log(profile);
+
         var searchQuery = {
-            name: profile.displayName
+            email: profile.email
         };
 
         var updates = {
             name: profile.displayName,
-            someID: profile.id
+            email: profile.email,
+            facebookId: profile.id
         };
 
         var options = {

@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+<div id="login" class="container">
+
+    <h1>
+        <a href="{{url}}" title="{{title}}" tabindex="-1" class="logo">{{title}}</a>
+    </h1>
+
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="portlet portlet-bordered">
+                <div class="portlet-title text-center">
+                    <h4>{{message}}</h4>
+                </div>
+                <div class="portlet-body">
+                    <p class="text-center">
+                        <a href="/auth/linkedin" class="btn btn-social-icon btn-sm btn-linkedin" data-toggle="tooltip" data-placement="bottom" title="Linkedin"><i class="fa fa-linkedin"></i></a> &nbsp;&nbsp;<a href="/auth/github" class="btn btn-social-icon btn-sm btn-github" data-toggle="tooltip" data-placement="bottom" title="Github"><i class="fa fa-github"></i></a> &nbsp;&nbsp;<a href="/auth/twitter" class="btn btn-social-icon btn-sm btn-twitter" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a> &nbsp;&nbsp;<a href="/auth/facebook" class="btn btn-social-icon btn-sm btn-facebook" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a> &nbsp;&nbsp;<a href="/auth/google" class="btn btn-social-icon btn-sm btn-google" data-toggle="tooltip" data-placement="bottom" title="Google"><i class="fa fa-google"></i></a> &nbsp;&nbsp;<a href="/auth/openid" class="btn btn-social-icon btn-sm btn-openid" data-toggle="tooltip" data-placement="bottom" title="OpenID"><i class="fa fa-openid"></i></a> &nbsp;&nbsp;<a href="/auth/azure" class="btn btn-social-icon btn-sm btn-microsoft" data-toggle="tooltip" data-placement="bottom" title="Microsoft"><i class="fa fa-windows"></i></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

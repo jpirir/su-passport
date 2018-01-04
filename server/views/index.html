@@ -4,18 +4,31 @@
 
 {% block content %}
 
-<div class="container">
+<div id="login" class="container">
 
-    <h1>{{ title }}</h1>
-    <p>Welcome! Please Login.</p>
-    <hr>
-    <br> <a href="/auth/linkedin" class="btn btn-default">LinkedIn</a>
-    <a href="/auth/github" class="btn btn-default">Github</a>
-    <a href="/auth/twitter" class="btn btn-default">Twitter</a>
-    <a href="/auth/facebook" class="btn btn-default">Facebook</a>
-    <a href="/auth/google" class="btn btn-default">Google</a>
-    <a href="/auth/openid" class="btn btn-default">OpenID</a>
-    <a href="/auth/azure" class="btn btn-default">Azure</a>
+    <h1>
+        <a href="{{url}}" title="{{title}}" tabindex="-1" class="logo">{{title}}</a>
+    </h1>
+
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="portlet portlet-bordered mb-2">
+                <div class="portlet-title text-center">
+                    <div class="caption">
+                        <h4>{{message}}</h4>
+                    </div>
+                    <div class="actions">
+                        <a href="/logout" class="btn btn-social-icon btn-sm" data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión"><i class="fa fa-sign-out"></i></a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <p class="text-center">
+                        Has iniciado sesión como {{user.name}}.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 

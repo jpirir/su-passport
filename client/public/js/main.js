@@ -1,5 +1,6 @@
 // add scripts
-
-$(document).on('ready', function() {
-  console.log('sanity check!');
+$(function () {
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 });
