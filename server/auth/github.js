@@ -12,8 +12,6 @@ passport.use(new GitHubStrategy({
     },
     function (accessToken, refreshToken, profile, done) {
 
-        console.log(profile);
-
         var searchQuery = {
             email: profile.emails[0].value
         };
@@ -21,7 +19,8 @@ passport.use(new GitHubStrategy({
         var updates = {
             name: profile.displayName,
             email: profile.emails[0].value,
-            githubId: profile.id
+            githubId: profile.id,
+            loginType: "GH"
         };
 
         var options = {

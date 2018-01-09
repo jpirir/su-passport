@@ -13,8 +13,6 @@ passport.use(new FacebookStrategy({
     },
     function (accessToken, refreshToken, profile, done) {
 
-        console.log(profile);
-
         var searchQuery = {
             email: profile.email
         };
@@ -22,7 +20,8 @@ passport.use(new FacebookStrategy({
         var updates = {
             name: profile.displayName,
             email: profile.email,
-            facebookId: profile.id
+            facebookId: profile.id,
+            loginType: "FB"
         };
 
         var options = {

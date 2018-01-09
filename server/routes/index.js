@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+var oradb = require('../oracle/oradb');
+
 var passportLinkedIn = require('../auth/linkedin');
 var passportGithub = require('../auth/github');
 var passportTwitter = require('../auth/twitter');
@@ -11,13 +13,49 @@ var passportOpenId = require('../auth/openid');
 
 router.get('/', function (req, res, next) {
     if (req.isAuthenticated()) {
-        res.render('index', {
-            title: 'Universales',
-            message: 'Bienvenido',
-            url: 'localhost:3000',
-            user: req.user
+
+        var socialId = '';
+
+        switch(req.user.loginType) {
+            case "MI":
+                socialId = req.user.azureId
+                break;
+            case "FB":
+                socialId = req.user.facebookId
+                break;
+            case "GH":
+                socialId = req.user.githubId
+                break;
+            case "GO":
+                socialId = req.user.googleId
+                break;
+            case "LI":
+                socialId = req.user.linkedinId
+                break;
+            case "OI":
+                socialId = req.user.openidId
+                break;
+            case "TW":
+                socialId = req.user.twitterId
+                break;
+        }
+
+        oradb.doQuery("SELECT * FROM TUSUARIOS WHERE RED_SOCIAL_ID = '" + socialId + "' AND TIPO_RED_SOCIAL = '" + req.user.loginType + "'", 'OBJECT', function(result){
+            if(Object.keys(result).length > 0) {
+                res.render('index', {
+                    title: 'Universales',
+                    message: 'Bienvenido',
+                    url: 'localhost:3000',
+                    user: req.user
+                });
+            } else {
+                req.session.destroy();
+                var err = new Error('El usuario no ha sido encontrado');
+                err.status = 404;
+                next(err);
+            }
         });
-        //TODO: Add oracle database integration
+
     } else {
         res.render('login', {
             title: 'Universales',

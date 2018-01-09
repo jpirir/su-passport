@@ -12,8 +12,6 @@ passport.use(new GoogleStrategy({
     },
     function (accessToken, refreshToken, profile, done) {
 
-        console.log(profile);
-
         var searchQuery = {
             email: profile.email
         };
@@ -21,7 +19,8 @@ passport.use(new GoogleStrategy({
         var updates = {
             name: profile.displayName,
             email: profile.email,
-            googleId: profile.id
+            googleId: profile.id,
+            loginType: "GO"
         };
 
         var options = {

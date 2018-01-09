@@ -12,8 +12,6 @@ passport.use(new TwitterStrategy({
     },
     function (accessToken, refreshToken, profile, done) {
 
-        console.log(profile);
-
         var searchQuery = {
             email: profile.email
         };
@@ -21,7 +19,8 @@ passport.use(new TwitterStrategy({
         var updates = {
             name: profile.displayName,
             email: profile.email,
-            twitterId: profile.id
+            twitterId: profile.id,
+            loginType: "TW"
         };
 
         var options = {

@@ -16,8 +16,6 @@ passport.use(new OpenIDStrategy({
     },
     function (iss, sub, profile, accessToken, refreshToken, done) {
 
-        console.log(profile);
-
         var searchQuery = {
             email: profile.email
         };
@@ -25,7 +23,8 @@ passport.use(new OpenIDStrategy({
         var updates = {
             name: profile.displayName,
             email: profile.email,
-            openidId: profile.id
+            openidId: profile.id,
+            loginType: "OI"
         };
 
         var options = {

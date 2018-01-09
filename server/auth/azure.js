@@ -25,6 +25,7 @@ passport.use(new AzureStrategy({
             name: profile.name,
             email: profile.email,
             azureId: profile.oid,
+            loginType: "MI"
         };
 
         var options = {

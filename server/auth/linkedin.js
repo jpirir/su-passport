@@ -13,8 +13,6 @@ passport.use(new LinkedInStrategy({
     },
     function (token, tokenSecret, profile, done) {
 
-        console.log(profile);
-
         var searchQuery = {
             email: profile.emailAddress
         };
@@ -22,7 +20,8 @@ passport.use(new LinkedInStrategy({
         var updates = {
             name: profile.displayName,
             email: profile.emailAddress,
-            linkedinId: profile.id
+            linkedinId: profile.id,
+            loginType: "LI"
         };
 
         var options = {

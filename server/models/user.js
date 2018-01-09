@@ -11,7 +11,8 @@ var User = new Schema({
     googleId: String,
     linkedinId: String,
     openidId: String,
-    twitterId: String
+    twitterId: String,
+    loginType: String
 });
 
 module.exports = mongoose.model('users', User);
