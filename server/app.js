@@ -9,6 +9,7 @@ var swig = require('swig');
 var passport = require('passport');
 var session = require('express-session');
 var mongoose = require('mongoose');
+var oracledb = require('oracledb');
 
 // *** routes *** //
 var routes = require('./routes/index.js');
@@ -46,7 +47,7 @@ app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    var err = new Error('Not Found');
+    var err = new Error('No encontrado');
     err.status = 404;
     next(err);
 });
@@ -74,5 +75,30 @@ app.use(function (err, req, res, next) {
         error: {}
     });
 });
+
+// *** oracle connection *** //
+var dbConfig = require('./dbconfig.js');
+
+oracledb.getConnection(
+    {
+        user: dbConfig.user,
+        password: dbConfig.password,
+        connectString: dbConfig.connectString
+    },
+    function (err, connection) {
+        if (err) {
+            console.error(err.message);
+            return;
+        }
+        console.log('ORA connected successfully');
+        console.log('ORA server version: ' + connection.oracleServerVersion);
+        connection.close(
+            function (err) {
+                if (err) {
+                    console.error(err.message);
+                    return;
+                }
+            });
+    });
 
 module.exports = app;

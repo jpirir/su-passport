@@ -2,6 +2,10 @@ node_modules/
 .DS_Store
 npm-debug.log
 server/_config.js
+Vagrantfile
 nodejs-universales-passport.iml
 package-lock.json
+.idea/
+.vagrant/
+ansible/
 server/dbconfig.js
