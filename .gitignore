@@ -9,3 +9,4 @@ package-lock.json
 .vagrant/
 ansible/
 server/dbconfig.js
+server/config/config.js
