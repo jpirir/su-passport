@@ -6,24 +6,28 @@ var config = require('../_config');
 var init = require('./init');
 
 passport.use(new OpenIDStrategy({
-        issuer: 'http://login.ordenadores.gt/openid-connect-server-webapp/',
-        tokenURL: 'http://login.ordenadores.gt/openid-connect-server-webapp/token',
-        userInfoURL: 'http://login.ordenadores.gt/openid-connect-server-webapp/userinfo',
-        authorizationURL: 'http://login.ordenadores.gt/openid-connect-server-webapp/authorize',
+        issuer: 'https://login.ordenadores.gt/openid-connect-server-webapp/',
+        tokenURL: 'https://login.ordenadores.gt/openid-connect-server-webapp/token',
+        userInfoURL: 'https://login.ordenadores.gt/openid-connect-server-webapp/userinfo',
+        authorizationURL: 'https://login.ordenadores.gt/openid-connect-server-webapp/authorize',
         clientID: config.openID.clientID,
         clientSecret: config.openID.clientSecret,
-        callbackURL: config.openID.callbackURL
-    },
-    function (iss, sub, profile, accessToken, refreshToken, done) {
+        callbackURL: config.openID.callbackURL,
+        scope: 'profile email',
+        tokenName: 'access_token'
+        
+    },function (iss, sub, profile, done) {
+        console.log("profile:" + JSON.stringify(profile._json));
 
+        
         var searchQuery = {
-            email: profile.email
+            email: profile._json.email
         };
 
         var updates = {
-            name: profile.displayName,
-            email: profile.email,
-            openidId: profile.id,
+            name: profile._json.name,
+            email: profile._json.email,
+            openidId: profile._json.sub,
             loginType: "OI"
         };
 

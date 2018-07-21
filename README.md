@@ -4,7 +4,10 @@ passport implementation su
 # Requeriments
 oracledb 
 mongoose
-node -v v6.11.3
+node -v 6.9.5
+node -v 6.11.3
+
+
 npm -v 3.10.10
 
 #Quick Start

@@ -9,7 +9,8 @@ var swig = require('swig');
 var passport = require('passport');
 var session = require('express-session');
 var mongoose = require('mongoose');
-var oracledb = require('oracledb');
+
+//var oracledb = require('oracledb');
 
 // *** routes *** //
 var routes = require('./routes/index.js');
@@ -77,7 +78,7 @@ app.use(function (err, req, res, next) {
 });
 
 // *** oracle connection *** //
-var dbConfig = require('./dbconfig.js');
+/*var dbConfig = require('./dbconfig.js');
 
 oracledb.getConnection(
     {
@@ -99,6 +100,6 @@ oracledb.getConnection(
                     return;
                 }
             });
-    });
+    });*/
 
 module.exports = app;

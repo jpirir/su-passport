@@ -13,6 +13,8 @@ passport.use(new FacebookStrategy({
     },
     function (accessToken, refreshToken, profile, done) {
 
+        console.log(profile);
+        
         var searchQuery = {
             email: profile.email
         };

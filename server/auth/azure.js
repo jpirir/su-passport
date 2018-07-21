@@ -17,13 +17,16 @@ passport.use(new AzureStrategy({
 
         profile = jwt.decode(params.id_token);
 
+        console.log(profile);
+        console.log(profile.upn);
+
         var searchQuery = {
-            email: profile.email
+            email: profile.upn
         };
 
         var updates = {
             name: profile.name,
-            email: profile.email,
+            email: profile.upn,
             azureId: profile.oid,
             loginType: "MI"
         };

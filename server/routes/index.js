@@ -11,50 +11,66 @@ var passportGoogle = require('../auth/google');
 var passportAzure = require('../auth/azure');
 var passportOpenId = require('../auth/openid');
 
+var bearerToken = require('express-bearer-token');
+
+var jwt = require('jsonwebtoken');
+
+var http = require('http');
+ 
+var emp = [];
+ 
+
+
+ //require the body-parser nodejs module
+ //var bodyParser = require('body-parser');
+ //require the path nodejs module
+ //var path = require("path");
+
+
+
 router.get('/', function (req, res, next) {
-    if (req.isAuthenticated()) {
+
+
+    if (req.user) {
 
         var socialId = '';
 
         switch(req.user.loginType) {
             case "MI":
-                socialId = req.user.azureId
+                socialId = req.user.azureId;
                 break;
             case "FB":
-                socialId = req.user.facebookId
+                socialId = req.user.facebookId;
                 break;
             case "GH":
-                socialId = req.user.githubId
+                socialId = req.user.githubId;
                 break;
             case "GO":
-                socialId = req.user.googleId
+                socialId = req.user.googleId;
                 break;
             case "LI":
-                socialId = req.user.linkedinId
+                socialId = req.user.linkedinId;
                 break;
             case "OI":
-                socialId = req.user.openidId
+                socialId = req.user.openidId;
                 break;
             case "TW":
-                socialId = req.user.twitterId
+                socialId = req.user.twitterId;
                 break;
         }
 
-        oradb.doQuery("SELECT * FROM TUSUARIOS WHERE RED_SOCIAL_ID = '" + socialId + "' AND TIPO_RED_SOCIAL = '" + req.user.loginType + "'", 'OBJECT', function(result){
-            if(Object.keys(result).length > 0) {
-                res.render('index', {
-                    title: 'Universales',
-                    message: 'Bienvenido',
-                    url: 'localhost:3000',
-                    user: req.user
-                });
-            } else {
-                req.session.destroy();
-                var err = new Error('El usuario no ha sido encontrado');
-                err.status = 404;
-                next(err);
-            }
-        });
+
+      /*  res.render('index', {
+            title: 'Universales',
+            message: 'Bienvenido',
+            url: 'localhost:3000',
+            user: req.user
+        });*/
+
+        console.log("go to dashboard");
+        res.redirect("/dashboard");
+
+       
 
     } else {
         res.render('login', {
@@ -63,6 +79,74 @@ router.get('/', function (req, res, next) {
             url: 'localhost:3000'
         });
     }
+});
+
+router.get('/doSome', function(req, res, next){
+    console.log("Doing the Post Operations....");
+
+
+    var socialId = '';
+
+    switch(req.user.loginType) {
+        case "MI":
+            socialId = req.user.azureId;
+            break;
+        case "FB":
+            socialId = req.user.facebookId;
+            break;
+        case "GH":
+            socialId = req.user.githubId;
+            break;
+        case "GO":
+            socialId = req.user.googleId;
+            break;
+        case "LI":
+            socialId = req.user.linkedinId;
+            break;
+        case "OI":
+            socialId = req.user.openidId;
+            break;
+        case "TW":
+            socialId = req.user.twitterId;
+            break;
+    }
+
+    
+    var request = require('request');
+
+    console.log("-----------------------mongo data-------------------------------------");
+    console.log(JSON.stringify(req.user));
+    var email_ = JSON.parse(JSON.stringify(req.user.email));
+    console.log(email_);
+    console.log("-----------------------mongo data------------------------------------");
+    
+   var token = jwt.sign({ "sub": email_ , "userId":"", "role":"viApp" }, 'qwerewrewr', { algorithm: 'HS512' });
+    
+    //jwtBearerToken
+    console.log("token :"+token);
+
+    request.get(
+        'http://localhost:8109/app/api/user/me', 
+        {headers: { 'Authorization': "Bearer " +token }},
+        function (error, response, body) {
+            if (!error && (response.statusCode == 200 
+                ||response.statusCode == 302)) {
+                console.log(body);
+                res.cookie("SESSIONID", token, {httpOnly:false, secure:true});
+                res.redirect("/dashboard");
+                
+
+            }else{
+                //console.log(error);
+               // console.log(response);
+               res.clearCookie("SESSIONID");
+                console.log(response.statusCode);
+                //console.log(body);
+                res.redirect("/login");
+            }
+        }
+    );
+
 });
 
 router.get('/login', function (req, res, next) {
@@ -75,6 +159,7 @@ router.get('/login', function (req, res, next) {
 
 router.get('/logout', function (req, res, next) {
     req.session.destroy(function (err) {
+        res.clearCookie("SESSIONID");
         res.redirect('/');
     });
 });
@@ -112,7 +197,7 @@ router.get('/auth/facebook/callback',
     passportFacebook.authenticate('facebook', {failureRedirect: '/login'}),
     function (req, res) {
         // Successful authentication
-        res.redirect('/');
+        res.redirect('/doSome');
     });
 
 router.get('/auth/google', passportGoogle.authenticate('google', {
@@ -124,7 +209,7 @@ router.get('/auth/google/callback',
     passportGoogle.authenticate('google', {failureRedirect: '/login'}),
     function (req, res) {
         // Successful authentication
-        res.redirect('/');
+        res.redirect('/doSome');
     });
 
 router.get('/auth/azure',
@@ -134,7 +219,7 @@ router.get('/auth/azure/callback',
     passportAzure.authenticate('azure_ad_oauth2', {failureRedirect: '/login'}),
     function (req, res) {
         // Successful authentication
-        res.redirect('/');
+        res.redirect('/doSome');
     });
 
 router.get('/auth/openid',
@@ -144,7 +229,8 @@ router.get('/auth/openid/callback',
     passportOpenId.authenticate('openidconnect', {failureRedirect: '/login'}),
     function (req, res) {
         // Successful authentication
-        res.redirect('/');
+        res.redirect("/doSome");
+        
     });
 
 module.exports = router;

@@ -4,6 +4,7 @@ var GoogleStrategy = require('passport-google-oauth2').Strategy;
 var User = require('../models/user');
 var config = require('../_config');
 var init = require('./init');
+var jwt = require('jsonwebtoken');
 
 passport.use(new GoogleStrategy({
         clientID: config.google.clientID,
@@ -11,6 +12,11 @@ passport.use(new GoogleStrategy({
         callbackURL: config.google.callbackURL
     },
     function (accessToken, refreshToken, profile, done) {
+
+        console.log(JSON.stringify(profile));
+        //profile = jwt.decode(profile);
+
+        //console.log(profile);
 
         var searchQuery = {
             email: profile.email

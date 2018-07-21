@@ -1,10 +1,87 @@
-{% extends 'layout.html' %}
+{% extends 'layout.html' %} {% block title %}{% endblock %} {% block content %}
 
-{% block title %}{% endblock %}
+<nav class="navbar navbar-template navbar-light bg-white menu-1 p-0 flex-wrap fixed-top">
+    <div class="col-12 top-nav"></div>
+    <a class="navbar-brand p-2" href="#">
+        <img src="img/universales-logo.png" alt="Universales">
+    </a>
+</nav>
 
-{% block content %}
+<!-- Full Page Intro -->
+<div class="view" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/89.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <!-- Mask & flexbox options-->
+    <div class="mask rgba-blue-strong d-flex justify-content-center align-items-center">
+        <!-- Content -->
+        <div class="container">
+            <!--Grid row-->
+            <div class="row pt-lg-5 mt-lg-5">
+                <!--Grid column-->
+                <div class="col-md-6 mb-5 mt-md-0 mt-5 white-text text-center text-md-left wow fadeInLeft" data-wow-delay="0.3s">
+                    <h1 class="display-4 font-weight-bold">Bienvenido</h1>
+                    <hr class="hr-light">
+                    <h6 class="mb-3">Seguros Universales, queremos que siempre estes bien, por favor elige una de las opcionea para ingresar</div>
+                <!--Grid column-->
+                <!--Grid column-->
+                <div class="col-md-6 col-xl-5 mb-4" id="login">
+                    <!--Form-->
+                    <div class="card wow fadeInRight" data-wow-delay="0.3s">
+                        <div class="card-body z-depth-2">
+                            <div class="text-center mt-3">
+                                
+                                <!--a href="/auth/facebook" class="btn btn-social-icon btn-sm btn-facebook" data-toggle="tooltip"
+                                    data-placement="bottom" title="Facebook">
+                                    <i class="fa fa-facebook"></i>
+                                </a> 
+                                <a href="/auth/google" class="btn btn-social-icon btn-sm btn-google" data-toggle="tooltip"
+                                    data-placement="bottom" title="Google">
+                                    <i class="fa fa-google"></i>
+                                </a>
+                                <a href="/auth/openid" class="btn btn-social-icon btn-sm btn-openid" data-toggle="tooltip"
+                                    data-placement="bottom" title="OpenID">
+                                    <i class="fa fa-openid"></i>
+                                </a> 
+                                <a href="/auth/azure" class="btn btn-social-icon btn-sm btn-microsoft" data-toggle="tooltip"
+                                    data-placement="bottom" title="Microsoft">
+                                    <i class="fa fa-windows"></i>
+                                </a-->
+                           
+                                <a class="btn btn-block btn-rounded blue-universales waves-effect waves-light" href="/auth/openid">Ingresar</a>
+                                
+                                <hr>
 
-<div id="login" class="container">
+                                <a class="btn btn-block btn-rounded blue-universales waves-effect waves-light" href="/auth/azure"><i class="fa fa-user prefix grey-text"></i>Office 365</a>
+                                <br/>
+                                <a class="btn btn-block btn-rounded blue-universales waves-effect waves-light" href="/auth/google">Google</a>
+                                <br/>
+                                <a class="btn btn-block btn-rounded blue-universales  waves-effect waves-light" href="/auth/facebook">facebook</a>
+                                
+                                <hr>
+                                <a href="#" id="hide">Registrarme</a>
+                                <br />
+                                <a href="#">Olvide mi contrase&ntilde;a</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.Form-->
+                </div>
+                <!--Grid column-->
+
+
+
+
+            </div>
+            <!--Grid row-->
+        </div>
+        <!-- Content -->
+    </div>
+    <!-- Mask & flexbox options-->
+</div>
+<!-- Full Page Intro -->
+
+
+
+
+<!--div id="login" class="container">
 
     <h1>
         <a href="{{url}}" title="{{title}}" tabindex="-1" class="logo">{{title}}</a>
@@ -18,13 +95,28 @@
                 </div>
                 <div class="portlet-body">
                     <p class="text-center">
-                        <a href="/auth/linkedin" class="btn btn-social-icon btn-sm btn-linkedin" data-toggle="tooltip" data-placement="bottom" title="Linkedin"><i class="fa fa-linkedin"></i></a> &nbsp;&nbsp;<a href="/auth/github" class="btn btn-social-icon btn-sm btn-github" data-toggle="tooltip" data-placement="bottom" title="Github"><i class="fa fa-github"></i></a> &nbsp;&nbsp;<a href="/auth/twitter" class="btn btn-social-icon btn-sm btn-twitter" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a> &nbsp;&nbsp;<a href="/auth/facebook" class="btn btn-social-icon btn-sm btn-facebook" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a> &nbsp;&nbsp;<a href="/auth/google" class="btn btn-social-icon btn-sm btn-google" data-toggle="tooltip" data-placement="bottom" title="Google"><i class="fa fa-google"></i></a> &nbsp;&nbsp;<a href="/auth/openid" class="btn btn-social-icon btn-sm btn-openid" data-toggle="tooltip" data-placement="bottom" title="OpenID"><i class="fa fa-openid"></i></a> &nbsp;&nbsp;<a href="/auth/azure" class="btn btn-social-icon btn-sm btn-microsoft" data-toggle="tooltip" data-placement="bottom" title="Microsoft"><i class="fa fa-windows"></i></a>
+                        <a href="/auth/facebook" class="btn btn-social-icon btn-sm btn-facebook" data-toggle="tooltip"
+                            data-placement="bottom" title="Facebook">
+                            <i class="fa fa-facebook"></i>
+                        </a> &nbsp;&nbsp;
+                        <a href="/auth/google" class="btn btn-social-icon btn-sm btn-google" data-toggle="tooltip"
+                            data-placement="bottom" title="Google">
+                            <i class="fa fa-google"></i>
+                        </a> &nbsp;&nbsp;
+                        <a href="/auth/openid" class="btn btn-social-icon btn-sm btn-openid" data-toggle="tooltip"
+                            data-placement="bottom" title="OpenID">
+                            <i class="fa fa-openid"></i>
+                        </a> &nbsp;&nbsp;
+                        <a href="/auth/azure" class="btn btn-social-icon btn-sm btn-microsoft" data-toggle="tooltip"
+                            data-placement="bottom" title="Microsoft">
+                            <i class="fa fa-windows"></i>
+                        </a>
                     </p>
                 </div>
             </div>
         </div>
     </div>
 
-</div>
+</div-->
 
 {% endblock %}
