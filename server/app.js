@@ -90,6 +90,8 @@ if (app.get('env') !== 'test') {
     }));
 }
 
+console.log('test');
+
 // *** error handlers *** //
 
 // error handler, send stacktrace only during development
